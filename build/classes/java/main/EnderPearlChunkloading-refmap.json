@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "com/hycer/enderpearlchunkloading/mixins/ThrownEntityMixin": {
+      "tick()V": "Lnet/minecraft/class_1682;method_5773()V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/hycer/enderpearlchunkloading/mixins/ThrownEntityMixin": {
+        "tick()V": "Lnet/minecraft/class_1682;method_5773()V"
+      }
+    }
+  }
+}

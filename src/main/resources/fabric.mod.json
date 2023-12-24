@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "enderpearlchunkloading",
+  "version": "${version}",
+  "name": "EnderPearlChunkloading",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/Administrator/EnderPearlChunkloading"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/enderpearlchunkloading/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.hycer.enderpearlchunkloading.client.EnderPearlChunkloading"
+    ],
+    "main": [
+      "com.hycer.enderpearlchunkloading.EnderPearlChunkLoading"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "mixins": [
+    "enderpearlchunkloading.mixins.json"
+  ]
+}

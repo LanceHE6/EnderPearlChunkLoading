@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hycer.enderpearlchunkloading.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ThrownEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
