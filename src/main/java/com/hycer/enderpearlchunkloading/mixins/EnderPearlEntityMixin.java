@@ -44,10 +44,11 @@ public abstract class EnderPearlEntityMixin extends ThrownEntity {
                 // 非珍珠炮射出的珍珠不会触发强加载
                 if (world instanceof ServerWorld &&
                         (Math.abs(velocity.x) > 20 || Math.abs(velocity.z) > 20)) {
-                    if (loadCount > 20){
+                    if (loadCount > 10){
 //                        System.out.println("超过20gt未被拦截，移除珍珠实体");
-                        owner.sendMessage(Text.of("[EnderPearlChunkLoading]珍珠超过20gt未被拦截，已移除珍珠实体"));
+                        owner.sendMessage(Text.of("[EnderPearlChunkLoading]珍珠超过10gt未被拦截，已移除珍珠实体"));
                         this.kill();
+                        return;
                     }
                     Vec3d pos = this.getPos();
                     double nx = pos.x + velocity.x;
@@ -62,7 +63,7 @@ public abstract class EnderPearlEntityMixin extends ThrownEntity {
                     }
                     // 设置新的强加载区块
                     chunkManager.setChunkForced(cp, true);
-                    owner.sendMessage(Text.of("[EPCL]已加载区块: " + String.format("%.2f", nx) + " " + String.format("%.2f", nz)));
+                    owner.sendMessage(Text.of("[EPCL]已加载区块%d: ".formatted(loadCount + 1) + String.format("%.2f", nx) + " " + String.format("%.2f", nz)));
                     System.out.println("Set chunk forced for " + nx + " " + nz);
                     loadCount ++;
                     prevChunkPos = cp;
