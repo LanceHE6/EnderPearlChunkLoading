@@ -1,5 +1,6 @@
 package com.hycer.enderpearlchunkloading.mixins;
 
+import com.hycer.enderpearlchunkloading.config.ModConfiguration;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
@@ -33,10 +34,10 @@ public abstract class EnderPearlEntityMixin extends ThrownEntity {
     }
 
     @Inject(method = "tick()V", at = @At(value = "HEAD"))
-    private void chunkLoadNextChunk(CallbackInfo ci)
-    {
-        if (((Object) this) instanceof EnderPearlEntity)
-        {
+    private void chunkLoadNextChunk(CallbackInfo ci) {
+        ModConfiguration config = new ModConfiguration();
+        if (((Object) this) instanceof EnderPearlEntity) {
+            if (config.getStatus()) {
                 PlayerEntity owner = (PlayerEntity) this.getOwner();
                 World world = this.getEntityWorld();
                 Vec3d velocity = this.getVelocity();
@@ -44,9 +45,9 @@ public abstract class EnderPearlEntityMixin extends ThrownEntity {
                 // 非珍珠炮射出的珍珠不会触发强加载
                 if (world instanceof ServerWorld &&
                         (Math.abs(velocity.x) > 20 || Math.abs(velocity.z) > 20)) {
-                    if (loadCount > 10){
+                    if (loadCount > 10) {
 //                        System.out.println("超过20gt未被拦截，移除珍珠实体");
-                        owner.sendMessage(Text.of("[EnderPearlChunkLoading]珍珠超过10gt未被拦截，已移除珍珠实体"));
+                        owner.sendMessage(Text.of("[EPCL]珍珠超过10gt未被拦截，已移除珍珠实体"));
                         this.kill();
                         return;
                     }
@@ -65,12 +66,13 @@ public abstract class EnderPearlEntityMixin extends ThrownEntity {
                     chunkManager.setChunkForced(cp, true);
                     owner.sendMessage(Text.of("[EPCL]已加载区块%d: ".formatted(loadCount + 1) + String.format("%.2f", nx) + " " + String.format("%.2f", nz)));
                     System.out.println("Set chunk forced for " + nx + " " + nz);
-                    loadCount ++;
+                    loadCount++;
                     prevChunkPos = cp;
                     chunkManager.setChunkForced(cp, true);
 //                    System.out.println("after,isChunkLoaded: " + ((ServerWorld) world).getChunkManager().isChunkLoaded(cp.x, cp.z));
                 }
 
+            }
         }
 
     }
